@@ -4,14 +4,14 @@ const router = express.Router()
 
 // Datos de ejemplo para simular una base de datos en memoria
 let alumnos = [
-  { id: 1, matricula: '2023001', nombre: 'Juan Pérez', edad: 21, carrera: 'Ingeniería' },
-  { id: 2, matricula: '2023002', nombre: 'María López', edad: 22, carrera: 'Arquitectura' },
-  { id: 3, matricula: '2023003', nombre: 'Juan Pérez', edad: 21, carrera: 'Ingeniería' },
-  { id: 4, matricula: '2023004', nombre: 'María López', edad: 22, carrera: 'Arquitectura' },
-  { id: 5, matricula: '2023005', nombre: 'Juan Pérez', edad: 21, carrera: 'Ingeniería' },
-  { id: 6, matricula: '2023006', nombre: 'María López', edad: 22, carrera: 'Arquitectura' },
-  { id: 7, matricula: '2023007', nombre: 'Juan Pérez', edad: 21, carrera: 'Ingeniería' },
-  { id: 8, matricula: '2023008', nombre: 'María López', edad: 22, carrera: 'Arquitectura' },
+  { id: 1, matricula: '2023001', nombre: 'Juan Pérez', edad: 21, carrera: 'Ingeniería',imagen:'https://img.uefa.com/imgml/TP/players/3/2024/cutoff/250176450.png' },
+  { id: 2, matricula: '2023002', nombre: 'María López', edad: 22, carrera: 'Arquitectura',imagen:'https://img.uefa.com/imgml/TP/players/3/2024/cutoff/250176450.png' },
+  { id: 3, matricula: '2023003', nombre: 'Juan Pérez', edad: 21, carrera: 'Ingeniería' ,imagen:'https://img.uefa.com/imgml/TP/players/3/2024/cutoff/250176450.png'},
+  { id: 4, matricula: '2023004', nombre: 'María López', edad: 22, carrera: 'Arquitectura', imagen:'https://img.uefa.com/imgml/TP/players/3/2024/cutoff/250176450.png'},
+  { id: 5, matricula: '2023005', nombre: 'Juan Pérez', edad: 21, carrera: 'Ingeniería' ,imagen:'https://img.uefa.com/imgml/TP/players/3/2024/cutoff/250176450.png'},
+  { id: 6, matricula: '2023006', nombre: 'María López', edad: 22, carrera: 'Arquitectura',imagen:'https://img.uefa.com/imgml/TP/players/3/2024/cutoff/250176450.png' },
+  { id: 7, matricula: '2023007', nombre: 'Juan Pérez', edad: 21, carrera: 'Ingeniería' ,imagen:'https://img.uefa.com/imgml/TP/players/3/2024/cutoff/250176450.png'},
+  { id: 8, matricula: '2023008', nombre: 'María López', edad: 22, carrera: 'Arquitectura',imagen:'https://img.uefa.com/imgml/TP/players/3/2024/cutoff/250176450.png' },
 ]
 
 // Obtener todos los alumnos

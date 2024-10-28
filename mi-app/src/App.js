@@ -1,10 +1,21 @@
+
 import './App.css';
-import Tabla from './componente/tabla';
+import {BrowserRouter as Router} from "react-router-dom"
+import Menu from './componente/menu';
+import Rutas from './routes/Rutas';
+
+
+
 function App() {
+ 
   return (
-    <div className="App">
-      <Tabla/>
+    <Router>
+    
+    <div className="container-fluid">
+    <Menu/>
+    <Rutas/>
     </div>
+    </Router>
   );
 }
 
