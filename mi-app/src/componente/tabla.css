@@ -1,0 +1,72 @@
+/* tabla.css */
+
+.alert {
+    margin-bottom: 20px;
+}
+
+.table {
+    margin-top: 20px;
+    background-color: #f9f9f9; /* Fondo muy claro para la tabla */
+    border: 1px solid #ced4da; /* Borde claro */
+}
+
+.table th {
+    background-color: #e2e3e5; /* Fondo claro para el encabezado */
+    color: #212529; /* Color de texto oscuro pero suave */
+}
+
+.table td {
+    background-color: #ffffff; /* Fondo blanco para las celdas */
+    color: #495057; /* Color de texto oscuro pero suave */
+}
+
+.table th, .table td {
+    vertical-align: middle;
+}
+
+.table tbody tr:hover {
+    background-color: #e9ecef; /* Fondo claro al pasar el ratón sobre las filas */
+}
+
+.btn {
+    margin-right: 5px; /* Espacio entre botones */
+}
+
+.btn-primary {
+    background-color: #007bff; /* Color azul por defecto */
+    color: white; /* Color del texto */
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Color azul más oscuro al pasar el ratón */
+}
+
+.btn-outline-primary {
+    color: #007bff; /* Color del texto para botones outline */
+    border-color: #007bff; /* Borde azul */
+}
+
+.btn-outline-primary:hover {
+    background-color: #007bff; /* Fondo azul al pasar el ratón */
+    color: white; /* Color del texto en hover */
+}
+
+.btn-outline-danger {
+    color: #dc3545; /* Color rojo para eliminar */
+    border-color: #dc3545; /* Borde rojo */
+}
+
+.btn-outline-danger:hover {
+    background-color: #dc3545; /* Fondo rojo al pasar el ratón */
+    color: white; /* Color del texto en hover */
+}
+
+.btn-outline-warning {
+    color: #ffc107; /* Color amarillo para modificar */
+    border-color: #ffc107; /* Borde amarillo */
+}
+
+.btn-outline-warning:hover {
+    background-color: #ffc107; /* Fondo amarillo al pasar el ratón */
+    color: white; /* Color del texto en hover */
+}
