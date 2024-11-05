@@ -1,0 +1,47 @@
+/* Home.css */
+
+.home-container {
+  background-color: #f8f9fa; /* Fondo claro */
+  color: #343a40; /* Texto oscuro */
+  min-height: 100vh; /* Ocupa toda la pantalla */
+  padding: 20px;
+}
+
+.row {
+  margin: 0; /* Eliminar el margen entre las filas */
+}
+
+.card {
+  background-color: #ffffff !important; /* Fondo blanco de las tarjetas */
+  color: #343a40 !important; /* Texto oscuro */
+  border: 1px solid #dee2e6; /* Bordes suaves */
+  margin: 5px 0; /* Reducir el margen vertical de la tarjeta */
+}
+
+.small-card {
+  width: 200px; /* Ancho de la tarjeta */
+  margin: auto; /* Centrar la tarjeta */
+}
+
+.card-title {
+  color: #007bff !important; /* Título azul */
+}
+
+.card-footer {
+  background-color: #f8f9fa !important; /* Fondo del pie de tarjeta */
+  border-top: none;
+}
+
+.modal-content {
+  background-color: #f8f9fa !important; /* Fondo claro en el modal */
+  color: #343a40 !important; /* Texto oscuro */
+}
+
+.modal-header, .modal-footer {
+  background-color: #ffffff !important; /* Fondo blanco en el modal */
+}
+
+button.btn-primary {
+  background-color: #007bff !important;
+  border-color: #007bff !important;
+}
