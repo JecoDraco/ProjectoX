@@ -20,9 +20,8 @@ const ValidatedInput = ({ name, value, onChange, error }) => (
       name={name}
       value={value}
       onChange={onChange}
-      className={`form-control mb-1 ${error ? 'is-invalid' : ''}`}
+      className={`form-control mb-2 ${error ? 'is-invalid' : ''}`}
       placeholder={name.charAt(0).toUpperCase() + name.slice(1)}
-      style={{ fontSize: "1rem", padding: "8px" }}
     />
     {error && <div className="invalid-feedback">{error}</div>}
   </>
