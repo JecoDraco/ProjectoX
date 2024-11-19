@@ -2,71 +2,99 @@
 
 .alert {
     margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f8d7da; /* Color suave para la alerta */
+    border: 1px solid #f5c6cb; /* Borde suave */
+    border-radius: 5px; /* Bordes redondeados */
+    color: #721c24;
+    font-weight: 600;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
 }
 
 .table {
     margin-top: 20px;
-    background-color: #f9f9f9; /* Fondo muy claro para la tabla */
-    border: 1px solid #ced4da; /* Borde claro */
+    background-color: #f9f9f9;
+    border-radius: 8px; /* Bordes redondeados para la tabla */
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }
 
 .table th {
-    background-color: #e2e3e5; /* Fondo claro para el encabezado */
-    color: #212529; /* Color de texto oscuro pero suave */
+    background-color: #007bff; /* Fondo azul vibrante para encabezados */
+    color: white; /* Texto blanco */
+    font-weight: bold;
+    border-radius: 8px 8px 0 0; /* Bordes redondeados en el encabezado */
+    padding: 12px 16px; /* Espaciado */
 }
 
 .table td {
-    background-color: #ffffff; /* Fondo blanco para las celdas */
-    color: #495057; /* Color de texto oscuro pero suave */
+    background-color: #ffffff; /* Fondo blanco para celdas */
+    color: #495057;
+    padding: 12px 16px; /* Espaciado para las celdas */
+    border-top: 1px solid #dee2e6; /* Línea sutil entre las filas */
 }
 
 .table th, .table td {
     vertical-align: middle;
 }
 
+.table tbody tr {
+    transition: background-color 0.3s ease; /* Transición suave en el hover */
+}
+
 .table tbody tr:hover {
-    background-color: #e9ecef; /* Fondo claro al pasar el ratón sobre las filas */
+    background-color: #e1f1ff; /* Fondo suave al pasar el ratón */
+    transform: translateY(-2px); /* Movimiento sutil al pasar el ratón */
 }
 
 .btn {
-    margin-right: 5px; /* Espacio entre botones */
+    margin-right: 8px;
+    padding: 8px 15px; /* Espaciado mayor para botones */
+    border-radius: 5px; /* Bordes redondeados */
+    font-weight: 600;
+    transition: all 0.3s ease; /* Transiciones suaves */
 }
 
 .btn-primary {
-    background-color: #007bff; /* Color azul por defecto */
-    color: white; /* Color del texto */
+    background-color: #007bff;
+    color: white;
+    border: none;
 }
 
 .btn-primary:hover {
-    background-color: #0056b3; /* Color azul más oscuro al pasar el ratón */
+    background-color: #0056b3;
+    transform: translateY(-2px); /* Efecto de movimiento al pasar el ratón */
 }
 
 .btn-outline-primary {
-    color: #007bff; /* Color del texto para botones outline */
-    border-color: #007bff; /* Borde azul */
+    color: #007bff;
+    border: 2px solid #007bff;
 }
 
 .btn-outline-primary:hover {
-    background-color: #007bff; /* Fondo azul al pasar el ratón */
-    color: white; /* Color del texto en hover */
+    background-color: #007bff;
+    color: white;
+    transform: translateY(-2px); /* Efecto de movimiento */
 }
 
 .btn-outline-danger {
-    color: #dc3545; /* Color rojo para eliminar */
-    border-color: #dc3545; /* Borde rojo */
+    color: #dc3545;
+    border: 2px solid #dc3545;
 }
 
 .btn-outline-danger:hover {
-    background-color: #dc3545; /* Fondo rojo al pasar el ratón */
-    color: white; /* Color del texto en hover */
+    background-color: #dc3545;
+    color: white;
+    transform: translateY(-2px); /* Efecto de movimiento */
 }
 
 .btn-outline-warning {
-    color: #ffc107; /* Color amarillo para modificar */
-    border-color: #ffc107; /* Borde amarillo */
+    color: #ffc107;
+    border: 2px solid #ffc107;
 }
 
 .btn-outline-warning:hover {
-    background-color: #ffc107; /* Fondo amarillo al pasar el ratón */
-    color: white; /* Color del texto en hover */
+    background-color: #ffc107;
+    color: white;
+    transform: translateY(-2px); /* Efecto de movimiento */
 }

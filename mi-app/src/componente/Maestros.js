@@ -2,28 +2,28 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Modal, Button, Spinner } from "react-bootstrap";
 
-function AlumnoCard({ alumno, onMoreDetails }) {
+function MaestroCard({ maestro, onMoreDetails }) {
   return (
     <div className="col">
       <div className="card h-100 shadow-sm">
-        {/* Imagen del alumno */}
+        {/* Imagen del maestro */}
         <img
-          src={alumno.imagen || "/fallback-image.jpg"}
+          src={maestro.imagen || "/fallback-image.jpg"}
           className="card-img-top img-thumbnail mx-auto mt-3"
-          alt={alumno.nombre}
+          alt={maestro.nombre}
           style={{ width: "120px", height: "120px", objectFit: "cover" }}
         />
         <div className="card-body text-center">
           {/* Nombre y datos principales */}
-          <h5 className="card-title">{alumno.nombre}</h5>
+          <h5 className="card-title">{maestro.nombre}</h5>
           <p className="card-text">
-            <strong>Matrícula:</strong> {alumno.matricula} <br />
-            <strong>Edad:</strong> {alumno.edad}
+            <strong>Especialidad:</strong> {maestro.especialidad} <br />
+            <strong>Turno:</strong> {maestro.turno}
           </p>
         </div>
         <div className="card-footer text-center">
           {/* Botón para más detalles */}
-          <Button variant="primary" onClick={() => onMoreDetails(alumno)}>
+          <Button variant="primary" onClick={() => onMoreDetails(maestro)}>
             Ver detalles
           </Button>
         </div>
@@ -32,30 +32,30 @@ function AlumnoCard({ alumno, onMoreDetails }) {
   );
 }
 
-function Home() {
-  const [data, setData] = useState([]); // Estado para almacenar alumnos
+function Maestros() {
+  const [data, setData] = useState([]); // Estado para almacenar maestros
   const [loading, setLoading] = useState(true); // Estado de carga
-  const [selectedAlumno, setSelectedAlumno] = useState(null); // Alumno seleccionado para el modal
+  const [selectedMaestro, setSelectedMaestro] = useState(null); // Maestro seleccionado para el modal
   const [showModal, setShowModal] = useState(false); // Control del modal
 
   // Cargar datos desde la API
   useEffect(() => {
     axios
-      .get("http://localhost:3001/api/alumnos")
+      .get("http://localhost:3001/api/maestros")
       .then((response) => setData(response.data))
       .finally(() => setLoading(false)); // Oculta el spinner después de cargar
   }, []);
 
-  // Mostrar detalles de un alumno
-  const handleMoreDetails = (alumno) => {
-    setSelectedAlumno(alumno);
+  // Mostrar detalles de un maestro
+  const handleMoreDetails = (maestro) => {
+    setSelectedMaestro(maestro);
     setShowModal(true);
   };
 
   // Cerrar el modal
   const handleCloseModal = () => {
     setShowModal(false);
-    setSelectedAlumno(null);
+    setSelectedMaestro(null);
   };
 
   return (
@@ -69,9 +69,9 @@ function Home() {
         </div>
       ) : (
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-          {/* Muestra tarjetas de alumnos */}
-          {data.map((alumno) => (
-            <AlumnoCard key={alumno.id} alumno={alumno} onMoreDetails={handleMoreDetails} />
+          {/* Muestra tarjetas de maestros */}
+          {data.map((maestro) => (
+            <MaestroCard key={maestro.id} maestro={maestro} onMoreDetails={handleMoreDetails} />
           ))}
         </div>
       )}
@@ -79,17 +79,15 @@ function Home() {
       {/* Modal para detalles */}
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Detalles del Alumno</Modal.Title>
+          <Modal.Title>Detalles del Maestro</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {selectedAlumno && (
+          {selectedMaestro && (
             <div>
-              <p><strong>Matrícula:</strong> {selectedAlumno.matricula}</p>
-              <p><strong>Nombre:</strong> {selectedAlumno.nombre}</p>
-              <p><strong>Edad:</strong> {selectedAlumno.edad}</p>
-              <p><strong>Carrera:</strong> {selectedAlumno.carrera}</p>
-              <p><strong>Semestre:</strong> {selectedAlumno.semestre}</p>
-              <p><strong>Turno:</strong> {selectedAlumno.turno}</p>
+              <p><strong>Nombre:</strong> {selectedMaestro.nombre}</p>
+              <p><strong>Especialidad:</strong> {selectedMaestro.especialidad}</p>
+              <p><strong>Turno:</strong> {selectedMaestro.turno}</p>
+              <p><strong>Antigüedad:</strong> {selectedMaestro.antiguedad}</p>
             </div>
           )}
         </Modal.Body>
@@ -103,4 +101,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Maestros;
