@@ -1,104 +1,101 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from "react-router-dom";
-import axios from 'axios';
-import { Spinner } from 'react-bootstrap';
-import 'bootstrap-icons/font/bootstrap-icons.css';
 
+// Componente principal de navegación
 function Menu() {
-  const location = useLocation();
-  const [searchTerm, setSearchTerm] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const location = useLocation(); // Obtiene la ubicación actual para resaltar el enlace activo
+  const [searchTerm, setSearchTerm] = useState(''); // Estado para almacenar el término de búsqueda
 
-  const handleSearch = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
-
-    try {
-      const response = await axios.get(`https://api.example.com/search?q=${searchTerm}`);
-      console.log('Search results:', response.data);
-      // Manejo de resultados según tu estructura
-    } catch (err) {
-      setError('Error al realizar la búsqueda. Inténtalo de nuevo.');
-    } finally {
-      setLoading(false);
-    }
+  // Maneja la acción de búsqueda (actualmente solo registra el término en consola)
+  const handleSearch = (e) => {
+    e.preventDefault(); // Previene la recarga de la página
+    console.log('Buscando:', searchTerm); // Imprime el término de búsqueda en consola
   };
 
-  // Estilos en JavaScript para aplicar el efecto de transparencia y glassmorphism
+  // Estilos para la barra de navegación
   const navbarStyle = {
-    background: 'rgba(255, 255, 255, 0.8)',
-    backdropFilter: 'blur(8px)',
-    borderRadius: '10px',
-    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-    padding: '10px 20px',
+    background: 'rgba(255, 255, 255, 0.8)', // Transparencia con glassmorphism
+    backdropFilter: 'blur(8px)', // Efecto de desenfoque
+    borderRadius: '10px', // Bordes redondeados
+    padding: '10px 20px', // Espaciado interno
   };
 
   const brandStyle = {
-    color: '#007bff',
-    fontSize: '1.2em',
-    fontWeight: 'bold',
+    color: '#007bff', // Color azul para el texto de la marca
+    fontSize: '1.2em', // Tamaño de fuente más grande
+    fontWeight: 'bold', // Texto en negrita
   };
 
   const navLinkStyle = {
-    color: '#007bff',
-    transition: 'color 0.3s',
+    color: '#007bff', // Color azul para los enlaces
+    transition: 'color 0.3s', // Suaviza el cambio de color al pasar el ratón
   };
 
   const searchInputStyle = {
-    border: 'none',
-    borderRadius: '20px',
-    padding: '8px 15px',
-    boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.1)',
-    transition: 'box-shadow 0.3s',
-  };
-
-  const searchButtonStyle = {
-    borderRadius: '50%',
-    padding: '5px 10px',
-    transition: 'background-color 0.3s, box-shadow 0.3s',
+    border: 'none', // Sin bordes visibles
+    borderRadius: '20px', // Bordes redondeados
+    padding: '8px 15px', // Espaciado interno
   };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light" style={navbarStyle}>
       <div className="container-fluid">
+        {/* Enlace a la página principal */}
         <Link className="navbar-brand" to="/" style={brandStyle}>
-          | BARRA DE NAVEGACIÓN |
+          | Alumnos |
         </Link>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+        {/* Botón para el menú desplegable en dispositivos pequeños */}
+        <button 
+          className="navbar-toggler" 
+          type="button" 
+          data-bs-toggle="collapse" 
+          data-bs-target="#navbarSupportedContent" 
+          aria-controls="navbarSupportedContent" 
+          aria-expanded="false" 
+          aria-label="Toggle navigation"
+        >
           <span className="navbar-toggler-icon"></span>
         </button>
+
+        {/* Menú de navegación */}
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className={`nav-item ${location.pathname === '/' ? 'active' : ''}`}>
-              <Link className="nav-link" aria-current="page" to="/" style={navLinkStyle}>
-                | INICIO |
-              </Link>
-            </li>
+            {/* Enlace a "Tabla" */}
             <li className={`nav-item ${location.pathname === '/tabla' ? 'active' : ''}`}>
               <Link className="nav-link" to="/tabla" style={navLinkStyle}>
-                | TABLA |
+                | Agregar |
+              </Link>
+            </li>
+            <li className={`nav-item ${location.pathname === '/maestros' ? 'active' : ''}`}>
+              <Link className="nav-link" to="/Maestros" style={navLinkStyle}>
+                | Maestros |
+              </Link>
+            </li>
+            <li className={`nav-item ${location.pathname === '/TablaMaestros' ? 'active' : ''}`}>
+              <Link className="nav-link" to="/TablaMaestros" style={navLinkStyle}>
+                | TablaMaestros |
               </Link>
             </li>
           </ul>
-          <form className="d-flex align-items-center" role="search" onSubmit={handleSearch}>
+
+          {/* Barra de búsqueda */}
+          <form className="d-flex align-items-center" onSubmit={handleSearch}>
+            {/* Campo de entrada para buscar */}
             <input 
               className="form-control me-2" 
               type="search" 
               placeholder="Buscar" 
               aria-label="Buscar" 
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              style={searchInputStyle}
-              onFocus={(e) => e.target.style.boxShadow = '0px 0px 8px rgba(0, 0, 0, 0.2)'}
-              onBlur={(e) => e.target.style.boxShadow = '0px 0px 5px rgba(0, 0, 0, 0.1)'}
+              value={searchTerm} // Vinculado al estado `searchTerm`
+              onChange={(e) => setSearchTerm(e.target.value)} // Actualiza el estado al escribir
+              style={searchInputStyle} // Aplica estilos personalizados
             />
-            <button className="btn btn-outline-primary" type="submit" style={searchButtonStyle} disabled={loading}>
-              {loading ? <Spinner as="span" animation="border" size="sm" /> : <i className="bi bi-search"></i>}
+            {/* Botón de búsqueda */}
+            <button className="btn btn-outline-primary" type="submit">
+              <i className="bi bi-search"></i> {/* Ícono de lupa */}
             </button>
           </form>
-          {error && <div className="text-danger mt-2">{error}</div>}
         </div>
       </div>
     </nav>
