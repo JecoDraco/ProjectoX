@@ -78,24 +78,6 @@ function Menu() {
               </Link>
             </li>
           </ul>
-
-          {/* Barra de búsqueda */}
-          <form className="d-flex align-items-center" onSubmit={handleSearch}>
-            {/* Campo de entrada para buscar */}
-            <input 
-              className="form-control me-2" 
-              type="search" 
-              placeholder="Buscar" 
-              aria-label="Buscar" 
-              value={searchTerm} // Vinculado al estado `searchTerm`
-              onChange={(e) => setSearchTerm(e.target.value)} // Actualiza el estado al escribir
-              style={searchInputStyle} // Aplica estilos personalizados
-            />
-            {/* Botón de búsqueda */}
-            <button className="btn btn-outline-primary" type="submit">
-              <i className="bi bi-search"></i> {/* Ícono de lupa */}
-            </button>
-          </form>
         </div>
       </div>
     </nav>

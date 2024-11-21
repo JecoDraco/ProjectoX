@@ -1,6 +1,5 @@
-// routes/alumnos.js
-const express = require('express')
-const router = express.Router()
+const express = require('express');
+const router = express.Router();
 
 // Datos de ejemplo para simular una base de datos en memoria
 let alumnos = [
@@ -26,40 +25,36 @@ let alumnos = [
   { id: 21, matricula: '23E20139', nombre: 'Norberto Vazquez', edad: 19, carrera: 'Sistemas' ,imagen:'Norberto Vazquez.jpg',semestre:'Tercer Semestre',turno:'Matutino'},
   { id: 22, matricula: '23E20140', nombre: 'Yesenia Villa', edad: 19, carrera: 'Sistemas',imagen:'Yesi Villa.jpg',semestre:'Tercer Semestre' ,turno:'Matutino'},
   { id: 23, matricula: '23E20142', nombre: 'Carlos Zetina', edad: 19, carrera: 'Sistemas' ,imagen:'Carlos Zetina2.jpg',semestre:'Tercer Semestre',turno:'Matutino'},
- 
-]
+];
 
 // Obtener todos los alumnos
 router.get('/', (req, res) => {
-  res.json(alumnos)
+  res.json(alumnos); // Devuelve la lista completa de alumnos
 });
 
 // Agregar un nuevo alumno
 router.post('/', (req, res) => {
-  const nuevoAlumno = req.body
-  nuevoAlumno.id = alumnos.length + 1
-  alumnos.push(nuevoAlumno)
-  res.status(201).json(nuevoAlumno)
-})
+  const nuevoAlumno = { id: alumnos.length + 1, ...req.body }; // Crea un nuevo alumno con un ID único
+  alumnos.push(nuevoAlumno); // Agrega el nuevo alumno al arreglo
+  res.status(201).json(nuevoAlumno); // Responde con el alumno recién agregado
+});
 
-
-// Actualizar un alumno
+// Actualizar un alumno existente
 router.put('/:id', (req, res) => {
-  const { id } = req.params;
-  const alumnoIndex = alumnos.findIndex(al => al.id === parseInt(id))
-  if (alumnoIndex !== -1) {
-    alumnos[alumnoIndex] = { ...alumnos[alumnoIndex], ...req.body }
-    res.json(alumnos[alumnoIndex])
-  } else {
-    res.status(404).json({ mensaje: 'Alumno no encontrado' })
+  const alumnoIndex = alumnos.findIndex(al => al.id === parseInt(req.params.id)); // Encuentra el índice del alumno
+  if (alumnoIndex === -1) {
+    return res.status(404).json({ mensaje: 'Alumno no encontrado' }); // Si no se encuentra, responde con error
   }
-})
+  alumnos[alumnoIndex] = { ...alumnos[alumnoIndex], ...req.body }; // Actualiza los datos del alumno
+  res.json(alumnos[alumnoIndex]); // Devuelve el alumno actualizado
+});
 
 // Eliminar un alumno
 router.delete('/:id', (req, res) => {
-  const { id } = req.params
-  alumnos = alumnos.filter(al => al.id !== parseInt(id))
-  res.json({ mensaje: 'Alumno eliminado' })
-})
+  const alumnosFiltrados = alumnos.filter(al => al.id !== parseInt(req.params.id)); // Filtra alumnos eliminando el que coincide
+  const mensaje = alumnosFiltrados.length < alumnos.length ? 'Alumno eliminado' : 'Alumno no encontrado'; // Verifica si se eliminó alguno
+  alumnos = alumnosFiltrados; // Actualiza el arreglo
+  res.json({ mensaje }); // Responde con el mensaje correspondiente
+});
 
-module.exports = router
+module.exports = router;

@@ -37,6 +37,7 @@ function Home() {
   const [loading, setLoading] = useState(true); // Estado de carga
   const [selectedAlumno, setSelectedAlumno] = useState(null); // Alumno seleccionado para el modal
   const [showModal, setShowModal] = useState(false); // Control del modal
+  const [searchTerm, setSearchTerm] = useState(""); // Estado para almacenar el término de búsqueda
 
   // Cargar datos desde la API
   useEffect(() => {
@@ -58,8 +59,26 @@ function Home() {
     setSelectedAlumno(null);
   };
 
+  // Filtrar los alumnos según el término de búsqueda
+  const filteredAlumnos = data.filter((alumno) =>
+    alumno.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    alumno.matricula.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    alumno.carrera.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="container mt-4">
+      {/* Barra de búsqueda */}
+      <div className="mb-4">
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Buscar por nombre, matrícula o carrera"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
+
       {/* Spinner de carga */}
       {loading ? (
         <div className="text-center">
@@ -69,8 +88,8 @@ function Home() {
         </div>
       ) : (
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-          {/* Muestra tarjetas de alumnos */}
-          {data.map((alumno) => (
+          {/* Muestra las tarjetas de los alumnos filtrados */}
+          {filteredAlumnos.map((alumno) => (
             <AlumnoCard key={alumno.id} alumno={alumno} onMoreDetails={handleMoreDetails} />
           ))}
         </div>
@@ -104,3 +123,4 @@ function Home() {
 }
 
 export default Home;
+

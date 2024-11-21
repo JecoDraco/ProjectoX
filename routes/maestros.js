@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-// Datos de ejemplo para simular una base de datos en memoria
+// Base de datos simulada en memoria
 let maestros = [
   { id: 1, nombre: 'Carlos Pérez', especialidad: 'Matemáticas', antiguedad: '10 años', turno: 'Matutino', imagen: 'carlos.jpg' },
   { id: 2, nombre: 'Ana López', especialidad: 'Física', antiguedad: '8 años', turno: 'Vespertino', imagen: 'ana.jpg' },
@@ -12,34 +12,32 @@ let maestros = [
 
 // Obtener todos los maestros
 router.get('/', (req, res) => {
-  res.json(maestros);
+  res.json(maestros); // Devuelve la lista completa de maestros
 });
 
 // Agregar un nuevo maestro
 router.post('/', (req, res) => {
-  const nuevoMaestro = req.body;
-  nuevoMaestro.id = maestros.length + 1;
-  maestros.push(nuevoMaestro);
-  res.status(201).json(nuevoMaestro);
+  const nuevoMaestro = { id: maestros.length + 1, ...req.body }; // Crea un nuevo maestro con un ID único
+  maestros.push(nuevoMaestro); // Agrega el nuevo maestro al arreglo
+  res.status(201).json(nuevoMaestro); // Devuelve el maestro recién creado
 });
 
-// Actualizar un maestro
+// Actualizar un maestro existente
 router.put('/:id', (req, res) => {
-  const { id } = req.params;
-  const maestroIndex = maestros.findIndex(maestro => maestro.id === parseInt(id));
-  if (maestroIndex !== -1) {
-    maestros[maestroIndex] = { ...maestros[maestroIndex], ...req.body };
-    res.json(maestros[maestroIndex]);
-  } else {
-    res.status(404).json({ mensaje: 'Maestro no encontrado' });
+  const index = maestros.findIndex(m => m.id === parseInt(req.params.id)); // Encuentra el índice del maestro por su ID
+  if (index === -1) {
+    return res.status(404).json({ mensaje: 'Maestro no encontrado' }); // Responde si no se encuentra el maestro
   }
+  maestros[index] = { ...maestros[index], ...req.body }; // Actualiza la información del maestro
+  res.json(maestros[index]); // Devuelve el maestro actualizado
 });
 
 // Eliminar un maestro
 router.delete('/:id', (req, res) => {
-  const { id } = req.params;
-  maestros = maestros.filter(maestro => maestro.id !== parseInt(id));
-  res.json({ mensaje: 'Maestro eliminado' });
+  const initialLength = maestros.length; // Guarda la longitud inicial del arreglo
+  maestros = maestros.filter(m => m.id !== parseInt(req.params.id)); // Elimina al maestro con el ID especificado
+  const mensaje = initialLength > maestros.length ? 'Maestro eliminado' : 'Maestro no encontrado'; // Determina si se eliminó o no
+  res.json({ mensaje }); // Devuelve un mensaje confirmando el resultado
 });
 
 module.exports = router;
