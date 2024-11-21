@@ -17,7 +17,7 @@ function MaestroCard({ maestro, onMoreDetails }) {
           {/* Nombre y datos principales */}
           <h5 className="card-title">{maestro.nombre}</h5>
           <p className="card-text">
-            <strong>Especialidad:</strong> {maestro.especialidad} <br />
+            <strong>Materia:</strong> {maestro.materia} <br />
             <strong>Turno:</strong> {maestro.turno}
           </p>
         </div>
@@ -85,9 +85,9 @@ function Maestros() {
           {selectedMaestro && (
             <div>
               <p><strong>Nombre:</strong> {selectedMaestro.nombre}</p>
-              <p><strong>Especialidad:</strong> {selectedMaestro.especialidad}</p>
+              <p><strong>Materia:</strong> {selectedMaestro.materia}</p>
               <p><strong>Turno:</strong> {selectedMaestro.turno}</p>
-              <p><strong>Antigüedad:</strong> {selectedMaestro.antiguedad}</p>
+              <p><strong>Años de servicio:</strong> {selectedMaestro.añosdeservicio}</p>
             </div>
           )}
         </Modal.Body>

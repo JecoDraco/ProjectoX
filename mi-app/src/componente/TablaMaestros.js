@@ -36,8 +36,8 @@ const TablaMaestros = () => {
   const [editingId, setEditingId] = useState(null);
   const [newMaestro, setNewMaestro] = useState({
     nombre: "",
-    especialidad: "",
-    antiguedad: "",
+    materia: "",
+    añosdeservicio: "",
     turno: "",
     imagen: "",
   });
@@ -60,7 +60,7 @@ const TablaMaestros = () => {
 
   const validateForm = () => {
     const errors = {};
-    ["nombre", "especialidad", "antiguedad", "turno", "imagen"].forEach((field) => {
+    ["nombre", "materia", "antiguedad", "turno", "imagen"].forEach((field) => {
       if (!newMaestro[field]) errors[field] = "Obligatorio.";
     });
     setFormErrors(errors);
@@ -110,7 +110,7 @@ const TablaMaestros = () => {
 
   const resetForm = () => {
     setEditingId(null);
-    setNewMaestro({ nombre: "", especialidad: "", antiguedad: "", turno: "", imagen: "" });
+    setNewMaestro({ nombre: "", materia: "", añosdeservicio: "", turno: "", imagen: "" });
     setFormErrors({});
   };
 
@@ -132,7 +132,7 @@ const TablaMaestros = () => {
         <h5 className="mb-2 text-center">Agregar/Modificar Maestro</h5>
         <div className="row">
           <div className="col-md-12">
-            {["nombre", "especialidad", "antiguedad", "turno", "imagen"].map((field) => (
+            {["nombre", "materia", "años de servicio", "turno", "imagen"].map((field) => (
               <ValidatedInput
                 key={field}
                 name={field}
@@ -159,7 +159,7 @@ const TablaMaestros = () => {
         <Table striped bordered hover className="text-center mt-3" style={{ fontSize: "1.1rem" }}>
           <thead>
             <tr>
-              {["Nombre", "Especialidad", "Antigüedad", "Turno", "Imagen", "Acciones"].map((header, index) => (
+              {["Nombre", "Materia", "Años de Servicio", "Turno", "Imagen", "Acciones"].map((header, index) => (
                 <th key={index}>{header}</th>
               ))}
             </tr>
@@ -168,8 +168,8 @@ const TablaMaestros = () => {
             {data.map((item) => (
               <tr key={item.id}>
                 <td>{item.nombre}</td>
-                <td>{item.especialidad}</td>
-                <td>{item.antiguedad}</td>
+                <td>{item.materia}</td>
+                <td>{item.añosdeservicio}</td>
                 <td>{item.turno}</td>
                 <td>
                   <img src={item.imagen} alt={item.nombre} style={{ width: "50px", height: "50px", objectFit: "cover" }} />
