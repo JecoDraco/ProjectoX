@@ -8,10 +8,10 @@ function MaestroCard({ maestro, onMoreDetails }) {
       <div className="card h-100 shadow-sm">
         {/* Imagen del maestro */}
         <img
-          src={maestro.imagen || "/fallback-image.jpg"}
+          src={maestro.imagen || "/fallback-image.jpg"} // Si no hay imagen, utiliza una por defecto
           className="card-img-top img-thumbnail mx-auto mt-3"
           alt={maestro.nombre}
-          style={{ width: "120px", height: "120px", objectFit: "cover" }}
+          style={{ width: "120px", height: "120px", objectFit: "cover" }} // Asegura un tamaño consistente para las imágenes
         />
         <div className="card-body text-center">
           {/* Nombre y datos principales */}
@@ -42,28 +42,28 @@ function Maestros() {
   // Cargar datos desde la API
   useEffect(() => {
     axios
-      .get("http://localhost:3001/api/maestros")
-      .then((response) => setData(response.data))
+      .get("http://localhost:3001/api/maestros") // Llama a la API para obtener los datos
+      .then((response) => setData(response.data)) // Almacena los datos en el estado
       .finally(() => setLoading(false)); // Oculta el spinner después de cargar
   }, []);
 
   // Mostrar detalles de un maestro
   const handleMoreDetails = (maestro) => {
-    setSelectedMaestro(maestro);
-    setShowModal(true);
+    setSelectedMaestro(maestro); // Configura el maestro seleccionado
+    setShowModal(true); // Muestra el modal
   };
 
   // Cerrar el modal
   const handleCloseModal = () => {
-    setShowModal(false);
-    setSelectedMaestro(null);
+    setShowModal(false); // Oculta el modal
+    setSelectedMaestro(null); // Limpia el maestro seleccionado
   };
 
   // Filtrar los maestros según el término de búsqueda
   const filteredMaestros = data.filter((maestro) =>
-    maestro.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    maestro.especialidad.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    maestro.turno.toLowerCase().includes(searchTerm.toLowerCase())
+    maestro.nombre.toLowerCase().includes(searchTerm.toLowerCase()) || // Búsqueda por nombre
+    maestro.especialidad.toLowerCase().includes(searchTerm.toLowerCase()) || // Búsqueda por especialidad
+    maestro.turno.toLowerCase().includes(searchTerm.toLowerCase()) // Búsqueda por turno
   );
 
   return (
@@ -75,7 +75,7 @@ function Maestros() {
           className="form-control"
           placeholder="Buscar por nombre, especialidad o turno"
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={(e) => setSearchTerm(e.target.value)} // Actualiza el término de búsqueda
         />
       </div>
 
@@ -90,7 +90,11 @@ function Maestros() {
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
           {/* Muestra las tarjetas de los maestros filtrados */}
           {filteredMaestros.map((maestro) => (
-            <MaestroCard key={maestro.id} maestro={maestro} onMoreDetails={handleMoreDetails} />
+            <MaestroCard
+              key={maestro.id} // Clave única para cada maestro
+              maestro={maestro}
+              onMoreDetails={handleMoreDetails} // Pasar función para más detalles
+            />
           ))}
         </div>
       )}
@@ -106,7 +110,7 @@ function Maestros() {
               <p><strong>Nombre:</strong> {selectedMaestro.nombre}</p>
               <p><strong>Especialidad:</strong> {selectedMaestro.especialidad}</p>
               <p><strong>Turno:</strong> {selectedMaestro.turno}</p>
-              <p><strong>Antigüedad:</strong> {selectedMaestro.antiguedad}</p>
+              <p><strong>Antigüedad:</strong> {selectedMaestro.antiguedad}</p> {/* Campo adicional */}
             </div>
           )}
         </Modal.Body>
@@ -121,4 +125,3 @@ function Maestros() {
 }
 
 export default Maestros;
-

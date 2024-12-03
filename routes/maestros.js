@@ -1,7 +1,10 @@
+// Importamos Express para manejar rutas.
+// Usamos el método Router() de Express para definir rutas específicas para "maestros".
 const express = require('express');
 const router = express.Router();
 
-// Base de datos simulada en memoria
+// Creamos un arreglo que simula una base de datos en memoria.
+// Cada objeto representa un maestro con datos como nombre, especialidad, antigüedad, turno y una imagen asociada.
 let maestros = [
   { id: 1, nombre: 'Carlos Pérez', especialidad: 'Matemáticas', antiguedad: '10 años', turno: 'Matutino', imagen: 'carlos.jpg' },
   { id: 2, nombre: 'Ana López', especialidad: 'Física', antiguedad: '8 años', turno: 'Vespertino', imagen: 'ana.jpg' },
@@ -10,34 +13,47 @@ let maestros = [
   { id: 5, nombre: 'José Ramírez', especialidad: 'Filosofía', antiguedad: '20 años', turno: 'Matutino', imagen: 'jose.jpg' },
 ];
 
-// Obtener todos los maestros
+// Ruta para obtener todos los maestros.
+// Cuando se accede a esta ruta, se devuelve la lista completa de maestros en formato JSON.
 router.get('/', (req, res) => {
   res.json(maestros); // Devuelve la lista completa de maestros
 });
 
-// Agregar un nuevo maestro
+// Ruta para agregar un nuevo maestro.
+// El cliente debe enviar los datos del maestro en el cuerpo de la solicitud.
 router.post('/', (req, res) => {
-  const nuevoMaestro = { id: maestros.length + 1, ...req.body }; // Crea un nuevo maestro con un ID único
-  maestros.push(nuevoMaestro); // Agrega el nuevo maestro al arreglo
-  res.status(201).json(nuevoMaestro); // Devuelve el maestro recién creado
+  // Creamos un nuevo maestro con un ID único, basado en el tamaño actual del arreglo, y agregamos los datos enviados.
+  const nuevoMaestro = { id: maestros.length + 1, ...req.body };
+  maestros.push(nuevoMaestro); // Añadimos el nuevo maestro al arreglo.
+  res.status(201).json(nuevoMaestro); // Respondemos con el nuevo maestro y un estado HTTP 201 (creado).
 });
 
-// Actualizar un maestro existente
+// Ruta para actualizar un maestro existente.
+// El cliente debe proporcionar el ID del maestro en la URL y los datos actualizados en el cuerpo de la solicitud.
 router.put('/:id', (req, res) => {
-  const index = maestros.findIndex(m => m.id === parseInt(req.params.id)); // Encuentra el índice del maestro por su ID
+  // Buscamos el índice del maestro correspondiente al ID proporcionado.
+  const index = maestros.findIndex(m => m.id === parseInt(req.params.id));
   if (index === -1) {
-    return res.status(404).json({ mensaje: 'Maestro no encontrado' }); // Responde si no se encuentra el maestro
+    // Si el maestro no existe, devolvemos un estado 404 (no encontrado) y un mensaje de error.
+    return res.status(404).json({ mensaje: 'Maestro no encontrado' });
   }
-  maestros[index] = { ...maestros[index], ...req.body }; // Actualiza la información del maestro
-  res.json(maestros[index]); // Devuelve el maestro actualizado
+  // Actualizamos los datos del maestro combinando la información existente con la nueva proporcionada.
+  maestros[index] = { ...maestros[index], ...req.body };
+  res.json(maestros[index]); // Enviamos el maestro actualizado como respuesta.
 });
 
-// Eliminar un maestro
+// Ruta para eliminar un maestro.
+// El cliente debe proporcionar el ID del maestro a eliminar en la URL.
 router.delete('/:id', (req, res) => {
-  const initialLength = maestros.length; // Guarda la longitud inicial del arreglo
-  maestros = maestros.filter(m => m.id !== parseInt(req.params.id)); // Elimina al maestro con el ID especificado
-  const mensaje = initialLength > maestros.length ? 'Maestro eliminado' : 'Maestro no encontrado'; // Determina si se eliminó o no
-  res.json({ mensaje }); // Devuelve un mensaje confirmando el resultado
+  // Guardamos el tamaño inicial del arreglo para comparar después.
+  const initialLength = maestros.length;
+  // Filtramos el arreglo eliminando el maestro que tenga el ID especificado.
+  maestros = maestros.filter(m => m.id !== parseInt(req.params.id));
+  // Comparamos el tamaño inicial con el nuevo para determinar si el maestro fue eliminado.
+  const mensaje = initialLength > maestros.length ? 'Maestro eliminado' : 'Maestro no encontrado';
+  res.json({ mensaje }); // Enviamos un mensaje indicando el resultado.
 });
 
+// Exportamos el router para que pueda ser utilizado en la aplicación principal.
+// Esto permite que las rutas definidas aquí se integren con el resto del proyecto.
 module.exports = router;
