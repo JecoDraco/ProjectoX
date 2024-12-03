@@ -1,7 +1,11 @@
+// Importamos Express para manejar rutas.
+// Usamos el método Router() de Express para definir rutas específicas de "alumnos".
 const express = require('express');
 const router = express.Router();
 
-// Datos de ejemplo para simular una base de datos en memoria
+// Creamos un arreglo con datos de ejemplo para simular una base de datos en memoria.
+// Cada objeto representa un alumno con información como matrícula, nombre, edad, carrera, entre otros.
+
 let alumnos = [
   { id: 1, matricula: '23E20096', nombre: 'Mario Aguilar', edad: 19, carrera: 'Sistemas',imagen:'Sin Foto .jpg',semestre:'Tercer Semestre',turno:'Matutino'},
   { id: 3, matricula: '23E20103', nombre: 'Jesus Burelo', edad: 19, carrera: 'Sistemas' ,imagen:'Burelo.jpg',semestre:'Tercer Semestre',turno:'Matutino'},
@@ -27,34 +31,47 @@ let alumnos = [
   { id: 23, matricula: '23E20142', nombre: 'Carlos Zetina', edad: 19, carrera: 'Sistemas' ,imagen:'Carlos Zetina2.jpg',semestre:'Tercer Semestre',turno:'Matutino'},
 ];
 
-// Obtener todos los alumnos
+
+// Ruta para obtener todos los alumnos.
+// Cuando un cliente accede a esta ruta, devolvemos la lista completa de alumnos en formato JSON.
 router.get('/', (req, res) => {
-  res.json(alumnos); // Devuelve la lista completa de alumnos
+  res.json(alumnos); // Devuelve todos los alumnos en la respuesta.
 });
 
-// Agregar un nuevo alumno
+// Ruta para agregar un nuevo alumno.
+// Aquí el cliente envía los datos del alumno en el cuerpo de la solicitud.
 router.post('/', (req, res) => {
-  const nuevoAlumno = { id: alumnos.length + 1, ...req.body }; // Crea un nuevo alumno con un ID único
-  alumnos.push(nuevoAlumno); // Agrega el nuevo alumno al arreglo
-  res.status(201).json(nuevoAlumno); // Responde con el alumno recién agregado
+  // Creamos un nuevo alumno con un ID único y los datos enviados por el cliente.
+  const nuevoAlumno = { id: alumnos.length + 1, ...req.body };
+  alumnos.push(nuevoAlumno); // Agregamos el nuevo alumno al arreglo.
+  res.status(201).json(nuevoAlumno); // Respondemos con el alumno recién agregado y un estado HTTP 201.
 });
 
-// Actualizar un alumno existente
+// Ruta para actualizar un alumno existente.
+// Se busca el alumno por su ID, que se envía como parte de la URL.
 router.put('/:id', (req, res) => {
-  const alumnoIndex = alumnos.findIndex(al => al.id === parseInt(req.params.id)); // Encuentra el índice del alumno
+  // Encontramos el índice del alumno con el ID proporcionado.
+  const alumnoIndex = alumnos.findIndex(al => al.id === parseInt(req.params.id));
   if (alumnoIndex === -1) {
-    return res.status(404).json({ mensaje: 'Alumno no encontrado' }); // Si no se encuentra, responde con error
+    // Si no encontramos el alumno, respondemos con un estado 404 y un mensaje de error.
+    return res.status(404).json({ mensaje: 'Alumno no encontrado' });
   }
-  alumnos[alumnoIndex] = { ...alumnos[alumnoIndex], ...req.body }; // Actualiza los datos del alumno
-  res.json(alumnos[alumnoIndex]); // Devuelve el alumno actualizado
+  // Actualizamos los datos del alumno encontrado con la información enviada en la solicitud.
+  alumnos[alumnoIndex] = { ...alumnos[alumnoIndex], ...req.body };
+  res.json(alumnos[alumnoIndex]); // Respondemos con los datos del alumno actualizado.
 });
 
-// Eliminar un alumno
+// Ruta para eliminar un alumno.
+// Recibimos el ID del alumno a eliminar en la URL.
 router.delete('/:id', (req, res) => {
-  const alumnosFiltrados = alumnos.filter(al => al.id !== parseInt(req.params.id)); // Filtra alumnos eliminando el que coincide
-  const mensaje = alumnosFiltrados.length < alumnos.length ? 'Alumno eliminado' : 'Alumno no encontrado'; // Verifica si se eliminó alguno
-  alumnos = alumnosFiltrados; // Actualiza el arreglo
-  res.json({ mensaje }); // Responde con el mensaje correspondiente
+  // Filtramos el arreglo para eliminar el alumno con el ID proporcionado.
+  const alumnosFiltrados = alumnos.filter(al => al.id !== parseInt(req.params.id));
+  // Verificamos si se eliminó algún alumno comparando el tamaño del arreglo.
+  const mensaje = alumnosFiltrados.length < alumnos.length ? 'Alumno eliminado' : 'Alumno no encontrado';
+  alumnos = alumnosFiltrados; // Actualizamos el arreglo global de alumnos.
+  res.json({ mensaje }); // Respondemos con un mensaje indicando el resultado.
 });
 
+// Exportamos el router para que pueda ser utilizado en otros archivos.
+// Esto es necesario para integrarlo en la aplicación principal de Express.
 module.exports = router;
