@@ -3,11 +3,14 @@ const router = express.Router();
 
 // Base de datos simulada en memoria
 let maestros = [
-  { id: 1, nombre: 'Carlos Pérez', especialidad: 'Matemáticas', antiguedad: '10 años', turno: 'Matutino', imagen: 'carlos.jpg' },
-  { id: 2, nombre: 'Ana López', especialidad: 'Física', antiguedad: '8 años', turno: 'Vespertino', imagen: 'ana.jpg' },
-  { id: 3, nombre: 'Luis Martínez', especialidad: 'Química', antiguedad: '5 años', turno: 'Matutino', imagen: 'luis.jpg' },
-  { id: 4, nombre: 'María González', especialidad: 'Historia', antiguedad: '15 años', turno: 'Vespertino', imagen: 'maria.jpg' },
-  { id: 5, nombre: 'José Ramírez', especialidad: 'Filosofía', antiguedad: '20 años', turno: 'Matutino', imagen: 'jose.jpg' },
+  { id: 1, nombre: 'DR.Ivan Arturo Perez ', especialidad: 'Director General', antiguedad: '10 años', turno: 'Completo', imagen: 'Director (1).jpg' },
+  { id: 2, nombre: 'DCC.Fernando Vera ', especialidad: 'Jefe de Carrera', antiguedad: '10 años', turno: 'Completo', imagen: 'Jefe de carrera (1).jpg' },
+  { id: 3, nombre: 'MSI.Fabiola Cruz ', especialidad: 'Desarro.Suste', antiguedad: '10 años', turno: 'Matutino', imagen: 'Mtr.Fabiola Cruz.jpg' },
+  { id: 4, nombre: 'MC.Mario Soler', especialidad: 'Calculo Vectorial', antiguedad: '10 años', turno: 'Doble', imagen: 'Mtr.Mario (1).jpg' },
+  { id: 5, nombre: 'ING.Antonio Lopez', especialidad: 'Telecomunicacion', antiguedad: '9 años', turno: 'Doble', imagen: 'Mtr.Antonio.jpg' },
+  { id: 6, nombre: 'ING.Dany Cambrano', especialidad: 'Estructura de Datos', antiguedad: '13 años', turno: 'Doble', imagen: 'Mtr.Dany Cambrano (1).jpg' },
+  { id: 7, nombre: 'DCC.Salomon de la O', especialidad: 'IO', antiguedad: '10 años', turno: 'Doble', imagen: 'Mtr.Salomon De la O (1).jpg' },
+  { id: 8, nombre: 'ING.Lazaro Arcos', especialidad: 'Fisica', antiguedad: '23 años', turno: 'Doble', imagen: 'Mtr.Lazaro Arcos  (1).jpg' },
 ];
 
 // Obtener todos los maestros

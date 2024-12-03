@@ -1,84 +1,109 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-// Componente principal de navegación
 function Menu() {
   const location = useLocation(); // Obtiene la ubicación actual para resaltar el enlace activo
-  const [searchTerm, setSearchTerm] = useState(''); // Estado para almacenar el término de búsqueda
+  const [searchTerm, setSearchTerm] = useState(""); // Estado para almacenar el término de búsqueda
 
-  // Maneja la acción de búsqueda (actualmente solo registra el término en consola)
+  // Maneja la acción de búsqueda
   const handleSearch = (e) => {
-    e.preventDefault(); // Previene la recarga de la página
-    console.log('Buscando:', searchTerm); // Imprime el término de búsqueda en consola
+    e.preventDefault();
+    if (!searchTerm.trim()) {
+      alert("Por favor, introduce un término de búsqueda.");
+      return;
+    }
+    console.log("Buscando:", searchTerm);
   };
 
-  // Estilos para la barra de navegación
+  // Estilos minimalistas
   const navbarStyle = {
-    background: 'rgba(255, 255, 255, 0.8)', // Transparencia con glassmorphism
-    backdropFilter: 'blur(8px)', // Efecto de desenfoque
-    borderRadius: '10px', // Bordes redondeados
-    padding: '10px 20px', // Espaciado interno
+    background: "#f8f9fa", // Fondo claro
+    borderBottom: "2px solid #e9ecef", // Línea inferior para separación
+    padding: "10px 20px",
   };
 
   const brandStyle = {
-    color: '#007bff', // Color azul para el texto de la marca
-    fontSize: '1.2em', // Tamaño de fuente más grande
-    fontWeight: 'bold', // Texto en negrita
+    color: "#333", // Texto oscuro
+    fontSize: "1.5em",
+    fontWeight: "bold",
+    textDecoration: "none",
   };
 
   const navLinkStyle = {
-    color: '#007bff', // Color azul para los enlaces
-    transition: 'color 0.3s', // Suaviza el cambio de color al pasar el ratón
+    color: "#555",
+    fontSize: "1em",
+    margin: "0 10px",
+    textDecoration: "none",
+    padding: "5px 10px",
+    borderRadius: "5px",
+    transition: "background-color 0.2s, color 0.2s",
+  };
+
+  const navLinkActiveStyle = {
+    backgroundColor: "#007bff",
+    color: "#fff",
   };
 
   const searchInputStyle = {
-    border: 'none', // Sin bordes visibles
-    borderRadius: '20px', // Bordes redondeados
-    padding: '8px 15px', // Espaciado interno
+    border: "1px solid #ddd",
+    borderRadius: "20px",
+    padding: "8px 15px",
+    width: "200px",
+    marginRight: "10px",
   };
 
+  const searchButtonStyle = {
+    background: "#007bff",
+    color: "#fff",
+    border: "none",
+    borderRadius: "20px",
+    padding: "8px 15px",
+    cursor: "pointer",
+  };
+
+  const navLinks = [
+    { path: "/tabla", label: "Agregar Alumno" },
+    { path: "/maestros", label: "Maestros" },
+    { path: "/TablaMaestros", label: "Agregar Maestro" },
+  ];
+
   return (
-    <nav className="navbar navbar-expand-lg navbar-light" style={navbarStyle}>
-      <div className="container-fluid">
-        {/* Enlace a la página principal */}
+    <nav className="navbar" style={navbarStyle}>
+      <div className="container-fluid d-flex align-items-center justify-content-between">
+        {}
         <Link className="navbar-brand" to="/" style={brandStyle}>
-          | Alumnos |
+          Alumnos
         </Link>
 
-        {/* Botón para el menú desplegable en dispositivos pequeños */}
-        <button 
-          className="navbar-toggler" 
-          type="button" 
-          data-bs-toggle="collapse" 
-          data-bs-target="#navbarSupportedContent" 
-          aria-controls="navbarSupportedContent" 
-          aria-expanded="false" 
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-
         {/* Menú de navegación */}
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            {/* Enlace a "Tabla" */}
-            <li className={`nav-item ${location.pathname === '/tabla' ? 'active' : ''}`}>
-              <Link className="nav-link" to="/tabla" style={navLinkStyle}>
-                | Agregar |
-              </Link>
-            </li>
-            <li className={`nav-item ${location.pathname === '/maestros' ? 'active' : ''}`}>
-              <Link className="nav-link" to="/Maestros" style={navLinkStyle}>
-                | Maestros |
-              </Link>
-            </li>
-            <li className={`nav-item ${location.pathname === '/TablaMaestros' ? 'active' : ''}`}>
-              <Link className="nav-link" to="/TablaMaestros" style={navLinkStyle}>
-                | TablaMaestros |
-              </Link>
-            </li>
-          </ul>
+        <div>
+          {navLinks.map((link, index) => (
+            <Link
+              key={index}
+              to={link.path}
+              style={{
+                ...navLinkStyle,
+                ...(location.pathname === link.path ? navLinkActiveStyle : {}),
+              }}
+            >
+              {link.label}
+            </Link>
+          ))}
         </div>
+
+        {/* Barra de búsqueda */}
+        <form className="d-flex" onSubmit={handleSearch}>
+          <input
+            type="search"
+            placeholder="Buscar"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            style={searchInputStyle}
+          />
+          <button type="submit" style={searchButtonStyle}>
+            Buscar
+          </button>
+        </form>
       </div>
     </nav>
   );
